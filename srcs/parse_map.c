@@ -11,17 +11,17 @@ void    add_img(t_img *dst, t_img *src, int x_start, int y_start) {
 
     dst_pos.y = y_start;
     src_pos.y = 0;
-
-    while (dst_pos.y < y_start + 32) {
+    while (dst_pos.y < y_start + 32)
+    {
         dst_pos.x = x_start;
         src_pos.x = 0;
-        while (dst_pos.x < x_start + 32) {
+        while (dst_pos.x < x_start + 32)
+        {
             addr_dst = dst->addr + (dst_pos.y * dst->width + dst_pos.x * 4);
             addr_src = src->addr + (src_pos.y * src->width + src_pos.x * 4);
             if ((int)*addr_dst != (int)*addr_src && (int)*addr_src != 0)
-            {
                 ft_memcpy(addr_dst, addr_src, 4);
-            }
+
             dst_pos.x++;
             src_pos.x++;
         }
@@ -47,6 +47,8 @@ void    draw_map(t_game *game)
                 add_img(&game->screen, &game->walls, j * 32, i * 32);
             else if (game->map[i][j] == 'C')
                 add_img(&game->screen, &game->collectible, j * 32, i * 32);
+            else if (game->map[i][j] == 'E')
+                add_img(&game->screen, &game->exit, j * 32, i * 32);
             j++;
         }
         i++;

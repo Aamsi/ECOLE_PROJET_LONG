@@ -21,11 +21,13 @@ typedef struct s_game {
     t_img   walls;
     t_img   grass;
     t_img   collectible;
+    t_img   exit;
     char    **map;
     int     height;
     int     width;
     int     character_x;
     int     character_y;
+    int     moves;
 }               t_game;
 
 typedef struct s_coord {
