@@ -111,7 +111,6 @@ int         check_walls(char **map, t_game *game)
 
     width = game->width / 32 - 1;
     height = game->height / 32 - 1;
-
     j = 0;
     while (map[0][j])
     {
@@ -189,10 +188,16 @@ int check_rectangle(char **map)
 int check_map(char **map, t_game *game)
 {
     if (!(check_walls(map, game)))
+    {
         return (0);
+    }
     if (!(check_exit_collectible_start(map, game)))
+    {
         return (0);
+    }
     if (!(check_rectangle(map)))
+    {
         return (0);
+    }
     return (1);
 }

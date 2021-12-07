@@ -87,6 +87,8 @@ int move_down(t_game *game)
     printf("Vous avez utilisé %d mouvement(s).\n", game->moves);
     if (can_move == 2)
         game->map[game->character_y][game->character_x] = '0';
+    if (can_move == 3)
+        finish_game(game);
     return 1;
 }
 

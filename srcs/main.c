@@ -13,16 +13,25 @@ int render_next_frame(t_game *game)
 int main(void)
 {
     t_game  game;
+    int res_width;
+    int res_height;
 
     init_struct(&game);
 
-    parse_map("maps/map.ber", &game);
-    if (!check_map(game.map, &game))
+    parse_map("maps/map_big_maze.ber", &game);
+    if (!check_map(game.map, &game)) {
+        printf("Error\n");
         return (-1);
+    }
 
     game.mlx = mlx_init();
     game.mlx_win = mlx_new_window(game.mlx, game.width, game.height, "So long");
-
+    mlx_get_screen_size(game.mlx, &res_width, &res_height);
+    if (game.width > res_width || game.height > res_height)
+    {
+        printf("Error, la map est trop grande pour la resolution de cet ecran.\n");
+        return (-1);
+    }
     game.screen.img = mlx_new_image(game.mlx, game.width, game.height);
     game.screen.addr = mlx_get_data_addr(game.screen.img, &game.screen.height, &game.screen.width, &game.screen.endian);
 
