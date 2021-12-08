@@ -5,7 +5,8 @@ SRCS		= ${SRCFOLD}main.c \
 				${SRCFOLD}get_next_line_utils.c \
 				${SRCFOLD}parse_map.c \
 				${SRCFOLD}init.c \
-				${SRCFOLD}binds.c
+				${SRCFOLD}binds.c \
+				${SRCFOLD}errors.c
 
 OBJS		= ${SRCS:.c=.o}
 

@@ -29,9 +29,7 @@ int check_next_step(int x, int y, char **map)
 
 int close_window(t_game *game)
 {
-    mlx_destroy_window(game->mlx, game->mlx_win);
-    exit(EXIT_SUCCESS);
-    return EXIT_SUCCESS;
+    return mlx_loop_end(game->mlx);
 }
 
 int finish_game(t_game *game)
@@ -55,7 +53,7 @@ int finish_game(t_game *game)
         i++;
     }
     printf("Félicitations, vous avez terminé le jeu en %d mouvements.\n", game->moves);
-    return close_window(game);
+    return mlx_loop_end(game->mlx);
 }
 
 int move_up(t_game *game)

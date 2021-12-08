@@ -91,13 +91,13 @@ char     **parse_map(char *file, t_game *game)
         ret = get_next_line(fd, &line);
         if (ret < 0)
             return (NULL);
+        if (line[0] == 0)
+            break;
         game->map = add_map(line, game->map);
         game->height++;
+        game->width = ft_strlen(line) * 32;
         if (ret == 0)
-        {
-            game->width = ft_strlen(line) * 32;
             break;
-        }
     }
     game->height *= 32;
     return (game->map);
@@ -185,19 +185,39 @@ int check_rectangle(char **map)
     return (1);
 }
 
+int check_charac(char **map)
+{
+    int     i;
+    int     j;
+    char    c;
+
+    i = 0;
+    while(map[i])
+    {
+        j = 0;
+        while (map[i][j])
+        {
+            c = map[i][j];
+            if (c != 'P' && c != 'C' && c != '0' && c!= '1' && c != 'E')
+                return (0);
+            j++;
+        }
+        i++;
+    }
+    return (1);
+}
+
 int check_map(char **map, t_game *game)
 {
+    if (game->height == 0)
+        return return_errors("La map est vide ou le fichier n'a pas été trouvé.");
+    if (!(check_charac(map)))
+        return return_errors("Il y a des charactères non-autorisés dans la map.");
     if (!(check_walls(map, game)))
-    {
-        return (0);
-    }
+        return return_errors("Les murs sont peut-être mal agencés.");
     if (!(check_exit_collectible_start(map, game)))
-    {
-        return (0);
-    }
+        return return_errors("Il n'y a pas d'exit, ou de collectibles, ou de spawn.");
     if (!(check_rectangle(map)))
-    {
-        return (0);
-    }
+        return return_errors("La map n'est pas un rectangle.");
     return (1);
 }
