@@ -1,56 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iouali <iouali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/25 10:53:17 by iouali            #+#    #+#             */
-/*   Updated: 2021/12/13 19:03:39 by iouali           ###   ########.fr       */
+/*   Created: 2020/11/18 11:48:53 by iouali            #+#    #+#             */
+/*   Updated: 2021/08/16 15:16:15 by iouali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-char	*ft_strndup(char *s, size_t size)
+char	*ft_strdup(char *s)
 {
 	size_t	i;
 	char	*result;
 
-	result = malloc(sizeof(char) * (size + 1));
+	result = malloc(sizeof(char) * (ft_strlen(s) + 1));
 	if (!result)
 		return (NULL);
 	i = 0;
-	while (i < size)
+	while (s[i])
 	{
 		result[i] = s[i];
 		i++;
 	}
 	result[i] = '\0';
 	return (result);
-}
-
-char	*delete_former_str(char *s, char c)
-{
-	int		i;
-	char	*new_str;
-
-	i = 0;
-	while (s[i] != c && s[i])
-		i++;
-	if (s[i] == c)
-		i++;
-	new_str = ft_strdup(s + i);
-	free(s);
-	return (new_str);
-}
-
-int	free_for_all(char *tmp_char)
-{
-	if (tmp_char)
-	{
-		free(tmp_char);
-		tmp_char = NULL;
-	}
-	return (-1);
 }

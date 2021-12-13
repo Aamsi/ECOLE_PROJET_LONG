@@ -1,141 +1,102 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   binds.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iouali <iouali@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/13 18:51:50 by iouali            #+#    #+#             */
+/*   Updated: 2021/12/13 18:51:55 by iouali           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "mlx.h"
 #include "so_long.h"
 #include <unistd.h>
 
-
-int check_next_step(int x, int y, char **map)
+int	move_up(t_game *game)
 {
-    int i;
-    int j;
+	int	can_move;
 
-    i = 0;
-    while(map[i])
-    {
-        j = 0;
-        while(map[i][j])
-        {
-            if (map[i][j] == '1' && x == j && y == i)
-                return (1);
-            if (map[i][j] == 'C' && x == j && y == i)
-                return (2);
-            if (map[i][j] == 'E' && x == j && y == i)
-                return (3);
-            j++;
-        }
-        i++;
-    }
-    return (0);
+	can_move = check_next_step(game->character_x, game->character_y - 1,
+			game->map);
+	if (can_move == 1)
+		return (0);
+	game->character_y -= 1;
+	game->moves += 1;
+	printf("Vous avez utilisé %d mouvement(s).\n", game->moves);
+	if (can_move == 2)
+		game->map[game->character_y][game->character_x] = '0';
+	if (can_move == 3)
+		finish_game(game);
+	return (1);
 }
 
-int close_window(t_game *game)
+int	move_down(t_game *game)
 {
-    return mlx_loop_end(game->mlx);
+	int	can_move;
+
+	can_move = check_next_step(game->character_x, game->character_y + 1,
+			game->map);
+	if (can_move == 1)
+		return (0);
+	game->character_y += 1;
+	game->moves += 1;
+	printf("Vous avez utilisé %d mouvement(s).\n", game->moves);
+	if (can_move == 2)
+		game->map[game->character_y][game->character_x] = '0';
+	if (can_move == 3)
+		finish_game(game);
+	return (1);
 }
 
-int finish_game(t_game *game)
+int	move_left(t_game *game)
 {
-    int i;
-    int j;
+	int	can_move;
 
-    i = 0;
-    while(game->map[i])
-    {
-        j = 0;
-        while(game->map[i][j])
-        {
-            if (game->map[i][j] == 'C')
-            {
-                printf("Vous n'avez pas collecté tous les collectibles, vous ne pouvez pas partir.\n");
-                return (0);
-            }
-            j++;
-        }
-        i++;
-    }
-    printf("Félicitations, vous avez terminé le jeu en %d mouvements.\n", game->moves);
-    return mlx_loop_end(game->mlx);
+	can_move = check_next_step(game->character_x - 1, game->character_y,
+			game->map);
+	if (can_move == 1)
+		return (0);
+	game->character_x -= 1;
+	game->moves += 1;
+	printf("Vous avez utilisé %d mouvement(s).\n", game->moves);
+	if (can_move == 2)
+		game->map[game->character_y][game->character_x] = '0';
+	if (can_move == 3)
+		finish_game(game);
+	return (1);
 }
 
-int move_up(t_game *game)
+int	move_right(t_game *game)
 {
-    int can_move;
+	int	can_move;
 
-    can_move = check_next_step(game->character_x, game->character_y - 1, game->map);
-    if (can_move == 1)
-        return (0);
-    game->character_y -= 1;
-    game->moves += 1;
-    printf("Vous avez utilisé %d mouvement(s).\n", game->moves);
-    if (can_move == 2)
-        game->map[game->character_y][game->character_x] = '0';
-    if (can_move == 3)
-        finish_game(game);
-    return 1;
+	can_move = check_next_step(game->character_x + 1, game->character_y,
+			game->map);
+	if (can_move == 1)
+		return (0);
+	game->character_x += 1;
+	game->moves += 1;
+	printf("Vous avez utilisé %d mouvement(s).\n", game->moves);
+	if (can_move == 2)
+		game->map[game->character_y][game->character_x] = '0';
+	if (can_move == 3)
+		finish_game(game);
+	return (1);
 }
 
-int move_down(t_game *game)
+int	binds(int keycode, t_game *game)
 {
-    int can_move;
-
-    can_move = check_next_step(game->character_x, game->character_y + 1, game->map);
-    if (can_move == 1)
-        return (0);
-    game->character_y += 1;
-    game->moves += 1;
-    printf("Vous avez utilisé %d mouvement(s).\n", game->moves);
-    if (can_move == 2)
-        game->map[game->character_y][game->character_x] = '0';
-    if (can_move == 3)
-        finish_game(game);
-    return 1;
-}
-
-int move_left(t_game *game)
-{
-    int can_move;
-
-    can_move = check_next_step(game->character_x - 1, game->character_y, game->map);
-    if (can_move == 1)
-        return (0);
-    game->character_x -= 1;
-    game->moves += 1;
-    printf("Vous avez utilisé %d mouvement(s).\n", game->moves);
-    if (can_move == 2)
-        game->map[game->character_y][game->character_x] = '0';
-    if (can_move == 3)
-        finish_game(game);
-    return 1;
-}
-
-int move_right(t_game *game)
-{
-    int can_move;
-
-    can_move = check_next_step(game->character_x + 1, game->character_y, game->map);
-    if (can_move == 1)
-        return (0);
-    game->character_x += 1;
-    game->moves += 1;
-    printf("Vous avez utilisé %d mouvement(s).\n", game->moves);
-    if (can_move == 2)
-        game->map[game->character_y][game->character_x] = '0';
-    if (can_move == 3)
-        finish_game(game);
-    return 1;
-}
-
-int binds(int keycode, t_game *game)
-{
-    if (keycode == 65307)
-        return close_window(game);
-    if (keycode == 119)
-        return move_up(game);
-    if (keycode == 115)
-        return move_down(game);
-    if (keycode == 97)
-        return move_left(game);
-    if (keycode == 100)
-        return move_right(game);
-
-    return game->height;
+	if (keycode == 65307)
+		return (close_window(game));
+	if (keycode == 119)
+		return (move_up(game));
+	if (keycode == 115)
+		return (move_down(game));
+	if (keycode == 97)
+		return (move_left(game));
+	if (keycode == 100)
+		return (move_right(game));
+	return (game->height);
 }

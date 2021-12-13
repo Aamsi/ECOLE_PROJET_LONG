@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iouali <iouali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/25 10:53:20 by iouali            #+#    #+#             */
-/*   Updated: 2021/12/13 18:43:25 by iouali           ###   ########.fr       */
+/*   Created: 2020/11/04 14:31:27 by iouali            #+#    #+#             */
+/*   Updated: 2021/08/16 15:18:00 by iouali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
+void	*ft_memcpy(void *dest, void *src, size_t n)
+{
+	size_t			i;
+	unsigned char	*tmp_src;
+	unsigned char	*tmp_dest;
 
-int			get_next_line(int fd, char **line);
-char		*ft_strndup(char *s, size_t size);
-char		*delete_former_str(char *s, char c);
-int			read_file(int fd, char **tmp_char);
-int			free_for_all(char *tmp_char);
-
-#endif
+	if (!dest && !src)
+		return (dest);
+	tmp_src = (unsigned char *)src;
+	tmp_dest = dest;
+	i = 0;
+	while (i < n)
+	{
+		tmp_dest[i] = tmp_src[i];
+		i++;
+	}
+	return (dest);
+}

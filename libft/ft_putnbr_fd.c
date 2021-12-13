@@ -1,29 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iouali <iouali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/25 10:53:20 by iouali            #+#    #+#             */
-/*   Updated: 2021/12/13 18:43:25 by iouali           ###   ########.fr       */
+/*   Created: 2020/11/19 21:57:16 by iouali            #+#    #+#             */
+/*   Updated: 2020/11/22 17:30:12 by iouali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
+void	ft_putnbr_fd(int n, int fd)
+{
+	int			mod;
+	char		to_write;
 
-int			get_next_line(int fd, char **line);
-char		*ft_strndup(char *s, size_t size);
-char		*delete_former_str(char *s, char c);
-int			read_file(int fd, char **tmp_char);
-int			free_for_all(char *tmp_char);
-
-#endif
+	if (n == -2147483648)
+	{
+		write(fd, "-2147483648", 11);
+		return ;
+	}
+	if (n < 0)
+	{
+		write(fd, "-", 1);
+		n *= -1;
+	}
+	mod = n % 10;
+	n /= 10;
+	if (n > 0)
+		ft_putnbr_fd(n, fd);
+	to_write = mod + 48;
+	write(fd, &to_write, 1);
+}

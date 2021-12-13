@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iouali <iouali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/25 10:53:20 by iouali            #+#    #+#             */
-/*   Updated: 2021/12/13 18:43:25 by iouali           ###   ########.fr       */
+/*   Created: 2020/11/19 21:53:23 by iouali            #+#    #+#             */
+/*   Updated: 2020/11/22 17:30:44 by iouali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-
-int			get_next_line(int fd, char **line);
-char		*ft_strndup(char *s, size_t size);
-char		*delete_former_str(char *s, char c);
-int			read_file(int fd, char **tmp_char);
-int			free_for_all(char *tmp_char);
-
-#endif
+void	ft_putendl_fd(char *s, int fd)
+{
+	if (!s)
+		return ;
+	write(fd, s, ft_strlen(s));
+	write(fd, "\n", 1);
+}

@@ -1,29 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iouali <iouali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/25 10:53:20 by iouali            #+#    #+#             */
-/*   Updated: 2021/12/13 18:43:25 by iouali           ###   ########.fr       */
+/*   Created: 2020/11/18 11:54:20 by iouali            #+#    #+#             */
+/*   Updated: 2021/12/13 19:24:17 by iouali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <stdio.h>
-# include <unistd.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
+char	*ft_substr(char *s, unsigned int start, size_t len)
+{
+	size_t	i;
+	char	*str;
+	char	*tmp_s;
 
-int			get_next_line(int fd, char **line);
-char		*ft_strndup(char *s, size_t size);
-char		*delete_former_str(char *s, char c);
-int			read_file(int fd, char **tmp_char);
-int			free_for_all(char *tmp_char);
-
-#endif
+	str = malloc(sizeof(char) * len + 1);
+	if (!(str))
+		return (NULL);
+	if (!s || start >= ft_strlen(s))
+		return (str);
+	tmp_s = (char *)s;
+	i = 0;
+	while (i < len && tmp_s[start])
+	{
+		str[i] = tmp_s[start];
+		i++;
+		start++;
+	}
+	str[i] = '\0';
+	return (str);
+}
