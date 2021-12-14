@@ -39,7 +39,8 @@ SRCS_BONUS =	./ft_lstnew.c \
 				./ft_lstadd_back.c \
 				./ft_lstdelone.c \
 				./ft_lstclear.c \
-				./ft_lstiter.c \
+				./ft_lstiter.c
+
 OBJS = ${SRCS:.c=.o}
 OBJS_BONUS = ${SRCS_BONUS:.c=.o}
 INCS = .
