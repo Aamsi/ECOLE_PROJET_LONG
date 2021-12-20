@@ -6,7 +6,7 @@
 /*   By: iouali <iouali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 18:52:08 by iouali            #+#    #+#             */
-/*   Updated: 2021/12/13 18:52:49 by iouali           ###   ########.fr       */
+/*   Updated: 2021/12/20 17:17:00 by iouali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,27 @@ int	free_for_all_long(t_game *game)
 		free(game->mlx);
 	}
 	free_map(game);
+	return (1);
+}
+
+int	check_extension(char *file)
+{
+	char	*file_extension;
+	int		extension_len;
+
+	file_extension = ft_strrchr(file, '.');
+	extension_len = ft_strlen(file_extension);
+	if (ft_strncmp(".ber", file_extension, extension_len) != 0)
+		return (-1);
+	return (0);
+}
+
+int	check_line_empty(char *line)
+{
+	if (line[0] == 0)
+	{
+		free(line);
+		return (0);
+	}
 	return (1);
 }

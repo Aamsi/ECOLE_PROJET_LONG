@@ -6,7 +6,7 @@
 /*   By: iouali <iouali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 18:42:49 by iouali            #+#    #+#             */
-/*   Updated: 2021/12/13 18:45:45 by iouali           ###   ########.fr       */
+/*   Updated: 2021/12/20 17:14:58 by iouali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,10 @@ int	main(int argc, char **argv)
 	t_game	game;
 
 	if (argc != 2)
-	{
-		printf("Mauvais arguments.\n");
-		return (-1);
-	}
+		return (return_errors("Mauvais arguments."));
 	init_struct(&game);
+	if (check_extension(argv[1]) < 0)
+		return (return_errors("Mauvaise extension de fichier."));
 	parse_map(argv[1], &game);
 	if (!check_map(game.map, &game))
 	{
@@ -42,6 +41,7 @@ int	main(int argc, char **argv)
 		return (-1);
 	}
 	mlx_hook(game.mlx_win, 2, 1L << 0, binds, &game);
+	mlx_hook(game.mlx_win, 17, 1L << 5, close_window, &game);
 	mlx_loop_hook(game.mlx, render_next_frame, &game);
 	mlx_loop(game.mlx);
 	free_for_all_long(&game);

@@ -6,7 +6,7 @@
 /*   By: iouali <iouali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 19:13:02 by iouali            #+#    #+#             */
-/*   Updated: 2021/12/13 19:13:30 by iouali           ###   ########.fr       */
+/*   Updated: 2021/12/20 17:21:29 by iouali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,7 @@ int		check_charac(char **map);
 int		check_map(char **map, t_game *game);
 int		check_loop(t_game *game, int collectible, int exit, int start);
 int		init_game_bis(t_game *game);
+int		check_extension(char *file);
+int		check_line_empty(char *line);
 
 #endif

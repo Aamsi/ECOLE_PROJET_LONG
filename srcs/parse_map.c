@@ -6,7 +6,7 @@
 /*   By: iouali <iouali@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/13 18:53:11 by iouali            #+#    #+#             */
-/*   Updated: 2021/12/13 18:55:43 by iouali           ###   ########.fr       */
+/*   Updated: 2021/12/20 17:22:16 by iouali           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ char	**parse_map(char *file, t_game *game)
 		ret = get_next_line(fd, &line);
 		if (ret < 0)
 			return (NULL);
-		if (line[0] == 0)
+		if (check_line_empty(line) == 0)
 			break ;
 		game->map = add_map(line, game->map);
 		game->height++;
